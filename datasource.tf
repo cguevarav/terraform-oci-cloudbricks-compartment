@@ -15,6 +15,19 @@ data "oci_identity_compartments" "PARENTCOMPARTMENT" {
   }
 }
 
+data "oci_identity_compartments" "PARENTCOMPARTMENTLINE" {
+  compartment_id            = var.tenancy_ocid
+  compartment_id_in_subtree = true
+  filter {
+    name   = "name"
+    values = [var.compartment_line]
+  }
+}
+
+
+
+
+
 data "oci_identity_region_subscriptions" "home_region_subscriptions" {
   tenancy_id = var.tenancy_ocid
 
@@ -29,4 +42,14 @@ locals {
   release = "1.0"
   # Compartment OCID Local Accessor
   parent_compartment_id = length(regexall("ocid", var.parent_compartment_name)) > 0 ? var.parent_compartment_name : (length(data.oci_identity_compartments.PARENTCOMPARTMENT.compartments) > 0 ? data.oci_identity_compartments.PARENTCOMPARTMENT.compartments[0].id : "")
+  line_compartment_id = length(regexall("ocid", var.compartment_line)) > 0 ? var.compartment_line : (length(data.oci_identity_compartments.PARENTCOMPARTMENTLINE.compartments) > 0 ? data.oci_identity_compartments.PARENTCOMPARTMENTLINE.compartments[0].id : "")
+
 }
+
+
+
+
+
+
+
+

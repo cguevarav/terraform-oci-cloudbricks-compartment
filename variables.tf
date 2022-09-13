@@ -35,6 +35,11 @@ variable "parent_compartment_name" {
   default     = ""
 }
 
+variable "compartment_line" {
+  description = "Compartment line to which this hierarchy belongs"
+  default = ""
+}
+
 variable "compartment_name" {
   description = "Compartment Display Name"
 }
